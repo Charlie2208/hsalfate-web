@@ -34,7 +34,6 @@
 export default {
   data() {
     return {
-      serviciosFiltrados: [],
       items: [
         {
           id: 1,
@@ -72,14 +71,23 @@ export default {
           span: "Capacidad y rigor",
         },
       ],
+      serviciosFiltrados: [],
     };
   },
   computed: {
     filtrarServicios() {
       const { id } = this.$route.params;
       this.serviciosFiltrados = this.items.filter((item) => item.id === id);
+      
       return this.serviciosFiltrados;
     },
+  },
+ mounted() {
+    if (this.items.length === 0) {
+      this.items;
+      console.log("se solicitó el servicio")
+      return 
+    }
   },
 };
 </script>

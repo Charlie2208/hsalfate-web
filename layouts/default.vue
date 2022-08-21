@@ -10,7 +10,7 @@
       <v-list color="white">
         <v-list-item to="/">
           <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
+            <v-icon color="red lighten-2">mdi-home</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>Inicio</v-list-item-title>
@@ -19,9 +19,10 @@
         <v-list-item
         v-for="info in infos"
         :key="info.item"
+        :to="info.to"
         >
           <v-list-item-icon>
-           <v-icon>mdi-check-circle</v-icon>
+           <v-icon color="red lighten-2">{{info.icon}}</v-icon>
             </v-list-item-icon>
           <v-list-item-content>
             {{info.item}}
@@ -86,19 +87,24 @@ export default {
       logo:require("../static/img/Logo.jpg"),
       infos:[
         {
-          item:"Inicio"
+          item:"Quienes Somos?",
+          to:"/quienes-somos",
+          icon:"mdi-account-box-outline"
         },
         {
-          item:"Quienes Somos?"
+          item:"Servicios",
+          to:"/servicios/lista-servicios",
+          icon:"mdi-face-agent"
         },
         {
-          item:"Servicios"
+          item:"Clientes",
+          to:"/clientes",
+          icon:"mdi-account-star"
         },
         {
-          item:"Clientes"
-        },
-        {
-          item:"Contacto"
+          item:"Contacto",
+          to:"/contacto",
+          icon:"mdi-card-account-phone"
         },
         ]
     };
