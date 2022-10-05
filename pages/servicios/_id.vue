@@ -31,63 +31,39 @@
   </v-app>
 </template>
 <script>
+import {mapActions} from "vuex";
+
 export default {
+  middleware:"initData",
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          msg: "Servicios a empresas",
-          src: "https://i.postimg.cc/4Ks6d5qx/Whats-App-Image-2022-08-17-at-11-27-41-AM.jpg",
-          url: require("../../static/img/aseo-empresa.jpg"),
-          icon: "mdi-check-circle",
-          span: "Profesionales capacitados",
-          description:"Hacemos de tu empresa un lugar agradable y limpio, fomentando la productividad e incrementando la imagen de tu compañía. Ponemos a tu disposición servicios de mantención periódica o trabajos puntuales para oficinas, locales comerciales, establecimientos educacionales, consultas médicas, gimnasios, restaurantes y otros a consultar.",
-        },
-        {
-          id: 2,
-          msg: "Envío correspondencia",
-          src: "https://i.postimg.cc/Yjh1hjnY/Whats-App-Image-2022-08-17-at-11-27-43-AM.jpg",
-          url: require("../../static/img/correspondencia.jpg"),
-          icon: "mdi-check-circle",
-          span: "Siempre puntal",
-        },
-        {
-          id: 3,
-          msg: "Servicios a domicilios",
-          src: "https://i.postimg.cc/WtC0rjCK/Whats-App-Image-2022-08-17-at-11-27-43-AM-1.jpg",
-          url: require("../../static/img/aseo-domicilio.jpg"),
-          icon: "mdi-check-circle",
-          span: "Profundo y delicado",
-          description:
-            "Somos especialistas en Limpieza profunda. Nos enfocamos en atacar aquellos lugares difíciles de limpiar, logrando una mantención minuciosa de alto estándar. ¡Descubre lo que podemos hacer por tu hogar!",
-        },
-        {
-          id: 4,
-          msg: "Jardinería",
-          src: "https://i.postimg.cc/YGyYdw9v/Whats-App-Image-2022-08-17-at-11-27-44-AM.jpg",
-          url: require("../../static/img/jardineria.jpg"),
-          icon: "mdi-check-circle",
-          span: "Capacidad y rigor",
-        },
-      ],
       serviciosFiltrados: [],
     };
   },
   computed: {
+    datos(){
+      return this.$store.getters['readData']
+    },
     filtrarServicios() {
       const { id } = this.$route.params;
-      this.serviciosFiltrados = this.items.filter((item) => item.id === id);
+      this.serviciosFiltrados = this.datos.filter((item) => item.id === id);
       
       return this.serviciosFiltrados;
     },
   },
- mounted() {
-    if (this.items.length === 0) {
-      this.items;
-      console.log("se solicitó el servicio")
+  async mounted() {
+    if (this.serviciosFiltrados.length == 0) {
+     await this.$store.getters['readData']
+      console.log("se solicitó la ruta")
       return 
     }
   },
+  methods:{
+    ...mapActions(["get_datos"])
+  },
+  // mounted(){
+  //   console.log(this.serviciosFiltrados)
+  // }
+  
 };
 </script>
